@@ -63,6 +63,7 @@ class ThreeDVQADataset(VQADataset, __DisplMixin):
     def __getitem__(self, index):
         ann = self.annotation[index]
         caption = self.text_processor(ann["question"])
+        caption = self.text_processor(ann["situation"]) + caption
         scene_id = ann["scene_id"]
         pc_feat = torch.load(os.path.join(self.pc_feat_root, f"{scene_id}.pt"), map_location="cpu")
         pc = np.load(os.path.join(self.voxel_root, f"{scene_id}.npy"))
@@ -133,6 +134,7 @@ class ThreeDVQAEvalDataset(VQAEvalDataset):
     def __getitem__(self, index):
         ann = self.annotation[index]
         caption = self.text_processor(ann["question"])
+        caption = self.text_processor(ann["situation"]) + caption
         scene_id = ann["scene_id"]
         pc_feat = torch.load(os.path.join(self.pc_feat_root, f"{scene_id}.pt"), map_location="cpu")  # [N, 1408]
         pc = np.load(os.path.join(self.voxel_root, f"{scene_id}.npy"))
