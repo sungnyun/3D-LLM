@@ -3,6 +3,8 @@ model:
   model_type: pretrain_flant5xl
   use_grad_checkpoint: False
   mask_embedding: False
+  load_finetuned: True
+  finetuned: /home/sungnyun/3D-LLM/ckpt/sqa3d.pth
 
 datasets:
   3d_vqa: # name of the dataset builder
@@ -53,8 +55,9 @@ run:
   output_dir: "output/BLIP2/3DQA"
 
   amp: True
-  resume_ckpt_path: /home/sungnyun/3D-LLM/ckpt/pretrain_blip2_sam_flant5xl_v2.pth
-  evaluate: False
+  resume_ckpt_path: null
+  evaluate: True
+
   train_splits: ["train"]
   valid_splits: ["val"]
   test_splits: ["test"]
